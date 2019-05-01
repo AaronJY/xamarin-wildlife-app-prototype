@@ -18,7 +18,7 @@ namespace Wildlife
             var setup = new AppSetup();
             AppContainer.Container = setup.CreateContainer();
 
-            MainPage = (Page)AppContainer.Container.Resolve<IMainPage>();
+            MainPage = new NavigationPage((Page)AppContainer.Container.Resolve<ISpeciesListPage>());
         }
 
         protected override void OnStart()

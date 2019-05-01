@@ -1,8 +1,8 @@
 ﻿using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
+using Wildlife.Models;
 
 namespace Wildlife.Services
 {
@@ -13,14 +13,31 @@ namespace Wildlife.Services
         public WildlifeHttpService()
         {
         }
+
         public WildlifeHttpService(IRestClient restClient)
         {
             _rest = restClient;
         }
 
-        public IEnumerable<object> GetListing()
+        public async Task<IEnumerable<Species>> GetListing()
         {
-            return Enumerable.Empty<object>();
+            return new List<Species>
+            {
+                new Species { Id = Guid.NewGuid(), Name = "Pig" },
+                new Species { Id = Guid.NewGuid(), Name = "Cow" },
+                new Species { Id = Guid.NewGuid(), Name = "Sheep" }
+            };
+        }
+
+        public async Task<SpeciesDetail> GetSpeciesById(Guid id)
+        {
+            return new SpeciesDetail
+            {
+                Id = Guid.NewGuid(),
+                Description = "This is a test description!",
+                LatestSighting = DateTime.Now,
+                Name = "Eagle"
+            };
         }
     }
 }

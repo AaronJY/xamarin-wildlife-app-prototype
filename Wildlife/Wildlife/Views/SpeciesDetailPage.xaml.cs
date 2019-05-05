@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wildlife.Models;
+using Wildlife.Navigation;
+using Wildlife.Navigation.NavigationModels;
 using Wildlife.Services;
 using Wildlife.ViewModels;
 using Xamarin.Forms;
@@ -11,40 +14,35 @@ using Xamarin.Forms.Xaml;
 namespace Wildlife.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SpeciesDetailPage : ContentPage, ISpeciesDetailPage
+    public partial class SpeciesDetailPage : ContentPage, ISpeciesDetailPage, INavigableView
     {
-        Guid _speciesId;
-
         readonly IWildlifeHttpService _wildlifeHttpService;
 
         public SpeciesDetailViewModel ViewModel { get; set; }
+
+        SpeciesDetailNavigationModel _navigationModel;
 
         public SpeciesDetailPage(
             IWildlifeHttpService wildlifeHttpService)
         {
             _wildlifeHttpService = wildlifeHttpService;
 
+            BindingContext = ViewModel = new SpeciesDetailViewModel();
+
+            FetchSpeciesList();
+
             InitializeComponent();
-            BindingContext = ViewModel;
-
-            GetSpecies(Guid.NewGuid());
         }
 
-        public void WithNavigationValues(Guid id)
+        async void FetchSpeciesList()
         {
-            _speciesId = id;
+            var speciesList = await _wildlifeHttpService.GetListing();
+            ViewModel.SpeciesList = speciesList.Select(species => new SpeciesItemViewModel(species));
         }
 
-        async void GetSpecies(Guid speciesId = default)
+        public void WithValues(NavigationModelBase model)
         {
-            if (speciesId == default)
-                throw new ArgumentException($"{nameof(speciesId)} can not be empty");
-
-            var speciesDetail = await _wildlifeHttpService.GetSpeciesById(speciesId);
-            if (speciesDetail != null)
-            {
-                ViewModel = new SpeciesDetailViewModel(speciesDetail);
-            }
+            _navigationModel = (SpeciesDetailNavigationModel)model;
         }
     }
 }

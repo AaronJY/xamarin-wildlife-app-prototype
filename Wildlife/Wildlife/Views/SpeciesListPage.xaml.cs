@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Wildlife.Navigation;
 using Wildlife.Services;
 using Wildlife.ViewModels;
 using Xamarin.Forms;
@@ -45,8 +46,7 @@ namespace Wildlife.Views
 
             //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
-            _speciesDetailPage.WithNavigationValues(Guid.NewGuid());
-            await Navigation.PushAsync((ContentPage)_speciesDetailPage);
+           
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

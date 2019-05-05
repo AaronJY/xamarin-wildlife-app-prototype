@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Wildlife.Navigation;
+using Wildlife.Navigation.NavigationModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,8 +15,12 @@ namespace Wildlife.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VideoCapturePage : ContentPage, IVideoCapturePage
     {
-        public VideoCapturePage()
+        readonly ISpeciesDetailPage speciesDetailPage;
+
+        public VideoCapturePage(ISpeciesDetailPage speciesDetailPage)
         {
+            this.speciesDetailPage = speciesDetailPage;
+
             InitializeComponent();
             BindEvents();
         }
@@ -43,7 +48,12 @@ namespace Wildlife.Views
                     if (file == null)
                         return;
 
-                    await DisplayAlert("Success", "You have successfully taken a video of your species!", "OK");
+                    //await DisplayAlert("Success", "You have successfully taken a video of your species!", "OK");
+
+                    var newPage = (SpeciesDetailPage)speciesDetailPage;
+                    newPage.WithValues(new SpeciesDetailNavigationModel(file));
+
+                    await Navigation.PushAsync(newPage);
                 }
             };
         }

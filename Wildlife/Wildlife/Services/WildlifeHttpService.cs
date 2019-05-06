@@ -33,7 +33,7 @@ namespace Wildlife.Services
         {
             return new SpeciesDetail
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 Description = "This is a test description!",
                 LatestSighting = DateTime.Now,
                 Name = "Eagle"

@@ -48,8 +48,6 @@ namespace Wildlife.Views
                     if (file == null)
                         return;
 
-                    //await DisplayAlert("Success", "You have successfully taken a video of your species!", "OK");
-
                     var newPage = (SpeciesDetailPage)speciesDetailPage;
                     newPage.WithValues(new SpeciesDetailNavigationModel(file));
 

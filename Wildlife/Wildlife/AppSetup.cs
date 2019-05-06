@@ -26,7 +26,6 @@ namespace Wildlife
 
             #region Views
 
-            builder.RegisterType<MainPage>().As<IMainPage>();
             builder.RegisterType<SpeciesListPage>().As<ISpeciesListPage>();
             builder.RegisterType<SpeciesDetailPage>().As<ISpeciesDetailPage>();
             builder.RegisterType<VideoCapturePage>().As<IVideoCapturePage>();

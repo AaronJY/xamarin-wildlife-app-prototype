@@ -11,11 +11,12 @@ namespace Wildlife.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SpeciesDetailPage : ContentPage, ISpeciesDetailPage, INavigableView
     {
-        readonly IWildlifeHttpService _wildlifeHttpService;
 
         public SpeciesDetailViewModel ViewModel { get; set; }
 
         SpeciesDetailNavigationModel _navigationModel;
+
+        readonly IWildlifeHttpService _wildlifeHttpService;
 
         public SpeciesDetailPage(
             IWildlifeHttpService wildlifeHttpService)

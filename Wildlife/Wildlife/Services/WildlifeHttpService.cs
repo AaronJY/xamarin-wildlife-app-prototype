@@ -10,10 +10,6 @@ namespace Wildlife.Services
     {
         readonly IRestClient _rest;
 
-        public WildlifeHttpService()
-        {
-        }
-
         public WildlifeHttpService(IRestClient restClient)
         {
             _rest = restClient;
